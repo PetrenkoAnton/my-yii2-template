@@ -1,11 +1,17 @@
 <?php
 
+Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+    'sourceLanguage' => 'ru',
+    'language' => 'ru',
+    'name' => 'My Yii2 Template',
+    'timeZone' => 'Europe/Kiev',
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -15,6 +21,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'SxAbYdzsPNjZMze8jiplmclJcDtgzLzh',
+            'baseUrl' => '',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -43,14 +50,14 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '' => 'site/index',
+                '<action>'=>'site/<action>',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
@@ -69,6 +76,11 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
+        'generators' => [
+            'fixture' => [
+                'class' => 'elisdn\gii\fixture\Generator',
+            ],
+        ],
     ];
 }
 
